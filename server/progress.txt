@@ -1,0 +1,4 @@
+<done>udp socket
+<done>encapsulate functions
+<done>generate sequence number
+handoff functions

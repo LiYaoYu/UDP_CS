@@ -1,0 +1,9 @@
+this whole process is that client send a signal through interface A to server
+then server sends sequence number to interface A of client
+that's all
+
+<done>udp connection
+<done>encapsulate functions
+<done>motivation
+<done>console
+<done>handoff
