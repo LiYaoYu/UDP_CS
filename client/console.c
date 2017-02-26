@@ -11,13 +11,13 @@ void show_info(char* msg, char* iface)
 	printf("msg from server: %s", msg);
 	printf("\033[5;1H");
 	printf("msg from iface: %s", iface);
+	printf("\033[7;1H");
+	printf("handoff: ");
 	fflush(stdout);
 }
 
 void init_console()
 {
-	//int flag;
-
 	//terminal anivation
 	printf("\033[2J");
 	printf("\033[H");
@@ -26,26 +26,25 @@ void init_console()
 	puts("1: Wigig\n2: Wifi");
 
 	show_info(" ", " ");
-
-	//set stdin to non block
-	/*
-	flag = fcntl(STDIN_FILENO, F_GETFL, 0);
-	if (fcntl(STDIN_FILENO, F_SETFL, flag | O_NONBLOCK) == -1)
-		perror("fcntl()");
-	*/
 }
 
 int ctl_iface()
 {
-	static int index;
-
-	printf("\033[7;1H");
-	printf("handoff: ");
+	int index;
 
 	while (1) {
 		scanf("%d", &index);
 		if (index == 1 || index == 2) {
+			printf("\033[8;1H");
+			printf("Handoff to %d              ", index);
+			printf("\033[7;1H");
+			printf("handoff: ");
 			break;
+		} else {
+			printf("\033[8;1H");
+			printf("Only 1 or 2 is acceptable.");
+			printf("\033[7;1H");
+			printf("handoff: ");
 		}
 	}
 	

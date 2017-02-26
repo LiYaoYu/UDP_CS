@@ -5,6 +5,12 @@
 
 #define BUFFSIZE 1023
 
+struct socketfds
+{
+	int fd_1;
+	int fd_2;
+};
+
 int isipv4(char* ip);
 
 in_addr_t get_bindip(char* iface);
