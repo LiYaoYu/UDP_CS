@@ -1,1 +1,8 @@
-tags	#ignore ctags files
+#gitignore
+
+#ignore tags files
+tags
+
+#ignore excutable files
+client
+server
