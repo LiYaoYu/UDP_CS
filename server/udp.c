@@ -46,3 +46,18 @@ void recv_msg(int fd, char* msg, struct sockaddr_in* addr)
 
 	msg[numbytes] = '\0';
 }
+
+void listen_fd(int svfd)
+{
+	extern struct sockaddr_in claddr;
+
+	char msg[BUFFSIZE + 1];
+	char cl_ip[INET_ADDRSTRLEN];
+
+	//recv msg from client
+	recv_msg(svfd, msg, &claddr);
+
+	//show recv msg info
+	printf("Recvfrom %s: %s\n", inet_ntop(claddr.sin_family,\
+		&claddr.sin_addr.s_addr, cl_ip, sizeof(cl_ip)), msg);
+}

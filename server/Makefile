@@ -1,7 +1,7 @@
 CC := gcc
 
 # for gdb debug
-CFLAGS = -Wall -g -O0
+CFLAGS = -Wall -g -O0 -pthread
 
 # for performance
 #CFLAGS = -Wall -O3

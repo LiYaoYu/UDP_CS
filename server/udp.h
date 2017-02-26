@@ -9,5 +9,7 @@ void send_msg(int fd, char* msg, struct sockaddr_in* addr);
 
 void recv_msg(int fd, char* msg, struct sockaddr_in* addr);
 
+void listen_fd(int svfd);
+
 #endif
 

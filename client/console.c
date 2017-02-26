@@ -10,7 +10,7 @@ void show_info(char* msg, char* iface)
 	printf("\033[4;1H");
 	printf("msg from server: %s", msg);
 	printf("\033[5;1H");
-	printf("msg from iface: %s", iface);
+	printf("msg from iface: %s ", iface);
 	printf("\033[7;1H");
 	printf("handoff: ");
 	fflush(stdout);

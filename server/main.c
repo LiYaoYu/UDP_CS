@@ -4,8 +4,13 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
 #include "udp.h"
+
+struct sockaddr_in claddr;
+
+void *keep_listen(void *fd);
 
 int main(int argc, char* argv[])
 {
@@ -17,18 +22,15 @@ int main(int argc, char* argv[])
 	int svfd;
 	int seq_num;
 	char msg[BUFFSIZE + 1];
-	char cl_ip[INET_ADDRSTRLEN];
-	struct sockaddr_in claddr;
+	pthread_t t_keep_listen;
 
 	//get server socket fd
 	svfd = sv_udp(atoi(argv[1]));
+	
+	//recv msg and show recv msg from client
+	listen_fd(svfd);
 
-	//recv msg from client
-	recv_msg(svfd, msg, &claddr);
-
-	//show recv msg info
-	printf("Recvfrom %s: %s\n", inet_ntop(claddr.sin_family,\
-		&claddr.sin_addr.s_addr, cl_ip, sizeof(cl_ip)), msg);
+	pthread_create(&t_keep_listen, NULL, keep_listen, (void *)&svfd);
 
 	//send sequence number to client
 	seq_num = 0;
@@ -38,5 +40,13 @@ int main(int argc, char* argv[])
 		send_msg(svfd, msg, &claddr);
 
 		sleep(1);
+	}
+}
+
+void *keep_listen(void *fd)
+{
+	int svfd = *(int *)fd;
+	while (1) {
+		listen_fd(svfd);
 	}
 }
