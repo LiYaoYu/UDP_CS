@@ -3,7 +3,7 @@
 
 #include <netinet/in.h>
 
-#define BUFFSIZE 1512 //TODO: try for the best performance
+#define BUFFSIZE 131071 //TODO: try for the best performance
 
 #define ETHERNET 0
 #define WIGIG 1

@@ -51,7 +51,7 @@ int ipbinded_udp(char* iface)
 
 	claddr.sin_family = AF_INET;
 
-	if ((fd = socket(claddr.sin_family, SOCK_DGRAM, 0)) == -1) {
+	if ((fd = socket(claddr.sin_family, SOCK_STREAM, 0)) == -1) {
 		perror("socket()");
 		exit(EXIT_FAILURE);
 	}
@@ -85,8 +85,7 @@ void set_addr(struct sockaddr_in* addr, char* ip, int port)
 
 void send_msg(int fd, char* msg, struct sockaddr_in* addr)
 {
-	if (sendto(fd, msg, strlen(msg), 0, (struct sockaddr*)addr,\
-			sizeof(*addr)) == -1)
+	if (send(fd, msg, strlen(msg), 0) == -1)
 		perror("sendto()");
 }
 
@@ -95,8 +94,7 @@ void recv_msg(int fd, char* msg, struct sockaddr_in* addr)
 	int numbytes;
 	socklen_t addr_len = sizeof(*addr);
 
-	if ((numbytes = recvfrom(fd, msg, sizeof(msg), 0,\
-			 (struct sockaddr*)addr, &addr_len)) == -1)
+	if ((numbytes = recv(fd, msg, sizeof(msg), 0)) == -1)
 		perror("recvfrom()");
 
 	msg[numbytes] = '\0';

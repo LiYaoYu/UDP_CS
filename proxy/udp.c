@@ -105,7 +105,7 @@ void recv_msg(int fd, char* msg, struct sockaddr_in* addr)
 	socklen_t addr_len = sizeof(*addr);
 
 	while (numbytes < BUFFSIZE) {
-		if ((numbytes += recvfrom(fd, &msg[numbytes], sizeof(msg), 0,\
+		if ((numbytes += recvfrom(fd, &msg[numbytes], BUFFSIZE, 0,\
 				 (struct sockaddr*)addr, &addr_len)) == -1)
 			perror("recvfrom()");
 	}

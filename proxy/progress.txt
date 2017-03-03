@@ -1,3 +1,0 @@
-create a socket to recv and send packet from server
-change send previous two sockets to one recv socket
-test
