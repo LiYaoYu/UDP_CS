@@ -74,7 +74,8 @@ void *forward_helper(void *arg)
 
 		} else if (ip_recv == ip_1 || ip_recv == ip_2) { //pkt form client
 			//send to server
-			send_msg(connfd, buffer, nbytes, &cl_addr);
+			send_msg(connfd, buffer, nbytes, &sv_addr);
+			puts("pkt to server");
 		}
 	}
 }
