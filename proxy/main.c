@@ -42,14 +42,15 @@ int main(int argc, char* argv[])
 
 void *forward_helper(void *arg)
 {
-	//int connfd = *((int *)&arg);
-	int connfd = create_udp_fd(5001);
 	int nbytes;
+	int connfd;
 	char buffer[BUFFSIZE + 1];
 	in_addr_t ip_recv; //the binary recv ip
 	struct sockaddr_in listen_addr;
 	struct sockaddr_in sv_addr;
 	struct sockaddr_in cl_addr;
+
+	connfd = create_udp_fd(*((int *)arg));
 
 	in_addr_t ip_0 = inet_addr(dstip[0]); //ethernet
 	in_addr_t ip_1 = inet_addr(dstip[1]); //wigig
