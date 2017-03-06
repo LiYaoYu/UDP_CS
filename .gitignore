@@ -6,3 +6,7 @@ tags
 #ignore excutable files
 client
 server
+proxy
+
+#ignore excutable files
+*.swp

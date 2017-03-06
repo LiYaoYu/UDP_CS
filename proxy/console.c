@@ -7,13 +7,7 @@
 
 void show_info(char* msg, char* iface)
 {
-	//show the server response
-/*
-	printf("\033[4;1H");
-	printf("msg from server: %s", msg);
-	printf("\033[5;1H");
-	printf("msg from iface: %s ", iface);
-*/
+	//show the handoff information
 	printf("\033[7;1H");
 	printf("handoff: ");
 	fflush(stdout);

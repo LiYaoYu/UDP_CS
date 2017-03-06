@@ -59,7 +59,6 @@ int create_udp_fd(int port)
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = INADDR_ANY;
 
-	//if ((fd = socket(addr.sin_family, SOCK_DGRAM, 0)) == -1) {
 	if ((fd = socket(addr.sin_family, SOCK_DGRAM, 0)) == -1) {
 		perror("socket()");
 		exit(EXIT_FAILURE);
@@ -90,26 +89,21 @@ void set_addr(struct sockaddr_in* addr, in_addr_t ip, int port)
 	(*addr).sin_addr.s_addr = ip;
 }
 
-void send_msg(int fd, char* msg, struct sockaddr_in* addr)
+int recv_msg(int fd, char* msg, struct sockaddr_in* addr)
 {
-	if (sendto(fd, msg, strlen(msg), 0, (struct sockaddr*)addr,\
-			sizeof(*addr)) == -1)
-		perror("sendto()");
-
-	printf("send size %ld\n", strlen(msg));
-}
-
-void recv_msg(int fd, char* msg, struct sockaddr_in* addr)
-{
-	int numbytes = 0;
+	int n = 0;
 	socklen_t addr_len = sizeof(*addr);
 
-	while (numbytes < BUFFSIZE) {
-		if ((numbytes += recvfrom(fd, &msg[numbytes], BUFFSIZE, 0,\
-				 (struct sockaddr*)addr, &addr_len)) == -1)
-			perror("recvfrom()");
-	}
-	msg[numbytes] = '\0';
-	printf("recv size %ld\n", strlen(msg));
-	printf("%s\n", msg);
+	if ((n = recvfrom(fd, msg, BUFFSIZE, 0,\
+			 (struct sockaddr*)addr, &addr_len)) == -1)
+		perror("recvfrom()");
+
+	return n;
+}
+
+void send_msg(int fd, char* msg, int nbytes, struct sockaddr_in* addr)
+{
+	if (sendto(fd, msg, nbytes, 0, (struct sockaddr*)addr,\
+			sizeof(*addr)) == -1)
+		perror("sendto()");
 }
